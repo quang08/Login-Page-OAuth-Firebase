@@ -7,12 +7,16 @@ function Home() {
   const navigate = useNavigate();
 
   const handleHome = async () => {
-    navigate('/')
+    navigate("/");
   };
 
   return (
     <div className="login">
-      <h1>Welcome, {user?.displayName}</h1>
+      {user.displayName ? (
+        <h1>Welcome {user?.displayName}</h1>
+      ) : (
+        <h1>Hi there!</h1>
+      )}
       <div className="container">
         <p className="divider">
           <span>Connect with Me !</span>

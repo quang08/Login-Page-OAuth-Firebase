@@ -9,7 +9,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const { googleSignIn, user } = UserAuth();
+  const { googleSignIn, githubSignIn, user } = UserAuth();
 
   const signUp = async (e) => {
     e.preventDefault();
@@ -31,17 +31,29 @@ function SignUp() {
     }
   };
 
+  const handleGithubSignIn = async () => {
+    try {
+      await githubSignIn();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  if(user) navigate("/account");
+
 
   return (
     <div className="login">
       <h1>Sign Up</h1>
       <div className="container">
-        <div className="top">
           <button>
             <i className="fab fa-google" onClick={handleGoogleSignIn}></i>
             <p>Sign up with Google</p>
           </button>
-        </div>
+          <button>
+            <i className="fab fa-github" onClick={handleGithubSignIn}></i>
+            <p>Sign in with Github</p>
+          </button>
 
         <p className="divider">
           <span>Or</span>

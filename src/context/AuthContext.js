@@ -1,7 +1,7 @@
 import { auth } from "../firebase";
 import {
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
   onAuthStateChanged,
   signOut,
   createUserWithEmailAndPassword,
@@ -14,10 +14,19 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const provider = new GoogleAuthProvider(); 
+  const GGprovider = new GoogleAuthProvider();
+  const GHprovider = new GithubAuthProvider();
 
   const googleSignIn = async () => {
-    await signInWithPopup(auth, provider);
+    await signInWithRedirect(auth, GGprovider).then((res) => {
+      console.log(res.user);
+    });
+  };
+
+  const githubSignIn = async () => {
+    await signInWithRedirect(auth, GHprovider).then((res) => {
+      console.log(res.user);
+    });
   };
 
   const logOut = () => {
@@ -36,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
+    <AuthContext.Provider value={{ googleSignIn, githubSignIn, logOut, user }}>
       {children}
     </AuthContext.Provider>
   );

@@ -9,7 +9,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const {googleSignIn, user} = UserAuth();
+  const {googleSignIn, githubSignIn, user} = UserAuth();
 
 
   const logIn = async (e) => {
@@ -31,6 +31,14 @@ function Login() {
     }
   }
 
+  const handleGithubSignIn = async () => {
+    try {
+      await githubSignIn();
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
 
   useEffect(() => {
     if(user != null) {
@@ -42,11 +50,14 @@ function Login() {
     <div className="login">
       <h1>Login</h1>
       <div className="container">
-          <button>
-            <i className="fab fa-google" onClick={handleGoogleSignIn}></i>
-            <p>Sign in with Google</p>
-          </button>
-
+        <button>
+          <i className="fab fa-google" onClick={handleGoogleSignIn}></i>
+          <p>Sign in with Google</p>
+        </button>
+        <button>
+          <i className="fab fa-github" onClick={handleGithubSignIn}></i>
+          <p>Sign in with Github</p>
+        </button>
 
         <p className="divider">
           <span>Or</span>
