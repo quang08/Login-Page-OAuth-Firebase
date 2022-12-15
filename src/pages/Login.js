@@ -44,7 +44,7 @@ function Login() {
       <div className="container">
           <button>
             <i className="fab fa-google" onClick={handleGoogleSignIn}></i>
-            <p>Sign up with Google</p>
+            <p>Sign in with Google</p>
           </button>
 
 
