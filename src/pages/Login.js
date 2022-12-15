@@ -45,7 +45,7 @@ function Login() {
 
   const notify = () => {
     if (error) {
-      toast.error("Incorrect Password or Email", {
+      toast.error("Invalid Password or Email", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,

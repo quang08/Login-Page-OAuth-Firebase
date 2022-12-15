@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [err, setErr] = useState(false);
   const navigate = useNavigate();
 
   const { googleSignIn, githubSignIn, user } = UserAuth();
@@ -22,8 +23,8 @@ function SignUp() {
       })
       .catch((err) => {
         console.log(err);
+        setErr(true);
       });
-    navigate("/account");
   };
 
   const handleGoogleSignIn = async () => {
@@ -41,6 +42,21 @@ function SignUp() {
       console.log(e);
     }
   };
+
+   const notify = () => {
+     if (err) {
+       toast.error("Password should be at least 6 characters.", {
+         position: "top-right",
+         autoClose: 5000,
+         hideProgressBar: true,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "colored",
+       });
+     }
+   };
 
   if (user) navigate("/account");
 
@@ -80,7 +96,8 @@ function SignUp() {
             }}
           ></input>
 
-          <button>Sign Up</button>
+          <button onClick={notify}>Sign Up</button>
+          <ToastContainer/>
         </form>
       </div>
     </div>
