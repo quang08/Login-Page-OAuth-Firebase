@@ -1,7 +1,9 @@
 # Key Features
-- Switchable Theme with Pleasing UI and Transition
-- Used useLocalStorage() Hook to Persist Current Theme between Refreshes
-- Implemented Stytch to for Authentication and Authorization
+- Switchable theme **(Dark/Light)** with smooth transitions.
+- Used **useLocalStorage()** to persist current theme between refreshes
+- Implemented **Firebase** for Authentication and Authorization (Password, OAuth)
+- Send Email to **reset password**
+- Alerts for **invalid email/password** and **weak password**
 
 # Getting Started with Create React App
 
