@@ -1,16 +1,19 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
-  const {googleSignIn, githubSignIn, user} = UserAuth();
-
+  const { googleSignIn, githubSignIn, user } = UserAuth();
 
   const logIn = async (e) => {
     e.preventDefault();
@@ -19,32 +22,47 @@ function Login() {
         console.log("user logged in: ", cred.user);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.code);
+        setError(true);
       });
   };
 
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const handleGithubSignIn = async () => {
     try {
       await githubSignIn();
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
+  const notify = () => {
+    if (error) {
+      toast.error("Incorrect Password or Email", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } 
+  };
 
   useEffect(() => {
-    if(user != null) {
-      navigate('/account')
+    if (user != null) {
+      navigate("/account");
     }
-  },[user]);
+  }, [user]);
 
   return (
     <div className="login">
@@ -87,7 +105,8 @@ function Login() {
             <p>Remember Me</p>
           </div>
 
-          <button>Log In</button>
+          <button onClick={notify}>Log In</button>
+          <ToastContainer />
         </form>
 
         <div className="bottom">

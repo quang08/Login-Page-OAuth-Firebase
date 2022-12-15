@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +23,7 @@ function SignUp() {
       .catch((err) => {
         console.log(err);
       });
-    navigate('/account');
+    navigate("/account");
   };
 
   const handleGoogleSignIn = async () => {
@@ -39,21 +42,20 @@ function SignUp() {
     }
   };
 
-  if(user) navigate("/account");
-
+  if (user) navigate("/account");
 
   return (
     <div className="login">
       <h1>Sign Up</h1>
       <div className="container">
-          <button>
-            <i className="fab fa-google" onClick={handleGoogleSignIn}></i>
-            <p>Sign up with Google</p>
-          </button>
-          <button>
-            <i className="fab fa-github" onClick={handleGithubSignIn}></i>
-            <p>Sign in with Github</p>
-          </button>
+        <button>
+          <i className="fab fa-google" onClick={handleGoogleSignIn}></i>
+          <p>Sign up with Google</p>
+        </button>
+        <button>
+          <i className="fab fa-github" onClick={handleGithubSignIn}></i>
+          <p>Sign in with Github</p>
+        </button>
 
         <p className="divider">
           <span>Or</span>

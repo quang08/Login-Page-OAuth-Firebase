@@ -24,9 +24,10 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const githubSignIn = async () => {
-    await signInWithRedirect(auth, GHprovider).then((res) => {
-      console.log(res.user);
-    });
+    await signInWithRedirect(auth, GHprovider)
+      .then((res) => {
+        console.log(res.user);
+      })
   };
 
   const logOut = () => {
